@@ -1,0 +1,17 @@
+FROM golang:1.23-bookworm AS base
+
+WORKDIR /go
+
+RUN mkdir -p pkg/mod/github.com
+
+RUN git clone https://github.com/tuapuikia/ticker
+
+RUN cd ticker && go build && go install
+
+FROM tuapuikia/ubuntu:24.04-slim
+
+COPY --from=base /go/bin/ticker /usr/bin/ticker
+
+ENTRYPOINT [ "ticker" ]
+
+CMD [ "-h" ]
