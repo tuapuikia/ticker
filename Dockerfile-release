@@ -14,4 +14,4 @@ COPY --from=base /go/bin/ticker /usr/bin/ticker
 
 ENTRYPOINT [ "ticker" ]
 
-CMD [ "-h" ]
+CMD [ "--config", "/root/.ticker.yaml" ]
